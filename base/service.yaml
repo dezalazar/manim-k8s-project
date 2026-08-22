@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: manim-studio-active
+spec:
+  type: ClusterIP
+  selector:
+    app: manim-studio
+  ports:
+    - port: 80
+      targetPort: 8000
+      name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: manim-studio-preview
+spec:
+  type: ClusterIP
+  selector:
+    app: manim-studio
+  ports:
+    - port: 80
+      targetPort: 8000
+      name: http

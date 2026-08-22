@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: manim-studio
+spec:
+  replicas: 1
+  strategy:
+    blueGreen:
+      activeService: manim-studio-active
+      previewService: manim-studio-preview
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
+  selector:
+    matchLabels:
+      app: manim-studio
+  template:
+    metadata:
+      labels:
+        app: manim-studio
+    spec:
+      containers:
+        - name: manim-engine
+          image: manim-app:v1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: manim-config
+                  key: ENVIRONMENT
+            - name: MANIM_QUALITY
+              valueFrom:
+                configMapKeyRef:
+                  name: manim-config
+                  key: MANIM_QUALITY
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
