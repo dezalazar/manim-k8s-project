@@ -6,8 +6,8 @@ spec:
   replicas: 1
   strategy:
     blueGreen:
-      activeService: manim-studio-active
-      previewService: manim-studio-preview
+      activeService: dev-manim-studio-active
+      previewService: dev-manim-studio-preview
       autoPromotionEnabled: false
       scaleDownDelaySeconds: 30
   selector:

@@ -12,3 +12,15 @@ configMapGenerator:
     literals:
       - ENVIRONMENT="Producción (PRD)"
       - MANIM_QUALITY="-qh"
+
+patches:
+  - target:
+      kind: Rollout
+      name: manim-studio
+    patch: |-
+      - op: replace
+        path: /spec/strategy/blueGreen/activeService
+        value: prd-manim-studio-active
+      - op: replace
+        path: /spec/strategy/blueGreen/previewService
+        value: prd-manim-studio-preview
