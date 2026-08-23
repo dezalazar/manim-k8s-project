@@ -7,12 +7,6 @@ resources:
 namespace: prd
 namePrefix: prd-
 
-configMapGenerator:
-  - name: manim-config
-    literals:
-      - ENVIRONMENT="Producción (PRD)"
-      - MANIM_QUALITY="-qh"
-
 patches:
   - target:
       kind: Rollout
@@ -24,3 +18,9 @@ patches:
       - op: replace
         path: /spec/strategy/blueGreen/previewService
         value: prd-manim-studio-preview
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: "Producción (PRD)"
+      - op: replace
+        path: /spec/template/spec/containers/0/env/1/value
+        value: "-qh"
