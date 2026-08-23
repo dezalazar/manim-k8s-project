@@ -4,9 +4,10 @@ USER root
 RUN pip install --no-cache-dir fastapi uvicorn
 
 WORKDIR /app
+COPY scene.py /app/scene.py
 COPY main.py /app/main.py
 
-RUN chown -R manimuser:manimuser /app
+RUN mkdir -p /app/media && chown -R manimuser:manimuser /app
 USER manimuser
 
 EXPOSE 8000
