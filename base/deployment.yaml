@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: manim-engine
-          image: manim-app:v1.1.0
+          image: manim-app:v1.1.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
