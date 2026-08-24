@@ -4,7 +4,7 @@ USER root
 RUN pip install --no-cache-dir fastapi uvicorn
 
 WORKDIR /app
-COPY scene.py /app/scene.py
+COPY scenes /app/scenes
 COPY main.py /app/main.py
 
 RUN mkdir -p /app/media && chown -R manimuser:manimuser /app
